@@ -12,8 +12,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.*;
 import com.jme3.texture.Texture;
  
-public class Main extends SimpleApplication {
- 
+public class Main extends SimpleApplication 
+{
     public static void main(String[] args)
     {	
         Main app = new Main();
@@ -22,7 +22,7 @@ public class Main extends SimpleApplication {
  
     @Override
     public void simpleInitApp() 
-    {
+    {    	
     	//	Make assetManager look in custom assets folder
     	assetManager.registerLocator("assets", FileLocator.class);
     	
@@ -34,7 +34,7 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) 
     {	
-        rootNode.getChild(0).rotate(0, -1.0f/2.0f * tpf, 0); 
+        //rootNode.getChild(0).rotate(0, -1.0f/2.0f * tpf, 0); 
     }
     
     void initString ()
@@ -43,9 +43,11 @@ public class Main extends SimpleApplication {
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
         BitmapText helloText = new BitmapText(guiFont, false);
         helloText.setSize(guiFont.getCharSet().getRenderedSize());
-        helloText.setText(FileLocator.class.getName());
-        helloText.setLocalTranslation(200, helloText.getLineHeight() + 100, 100);
-        guiNode.attachChild(helloText);
+        helloText.setText("Hello World");
+        //helloText.setLocalTranslation(200, helloText.getLineHeight() + 100, 100);
+        //guiNode.attachChild(helloText);
+        helloText.setLocalTranslation(-50f, 10f, -100f);
+        rootNode.attachChild(helloText);
     }
     
     void initGrid ()
