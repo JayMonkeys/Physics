@@ -1,6 +1,7 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.plugins.FileLocator;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
@@ -22,6 +23,9 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() 
     {
+    	//	Make assetManager look in custom assets folder
+    	assetManager.registerLocator("assets", FileLocator.class);
+    	
     	initGrid();
     	initScene();
     	initString();
@@ -29,8 +33,8 @@ public class Main extends SimpleApplication {
     
     @Override
     public void simpleUpdate(float tpf) 
-    {
-        rootNode.getChild(0).rotate(0, -tpf, 0); 
+    {	
+        rootNode.getChild(0).rotate(0, -1.0f/2.0f * tpf, 0); 
     }
     
     void initString ()
@@ -39,7 +43,7 @@ public class Main extends SimpleApplication {
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
         BitmapText helloText = new BitmapText(guiFont, false);
         helloText.setSize(guiFont.getCharSet().getRenderedSize());
-        helloText.setText("Hello World");
+        helloText.setText(FileLocator.class.getName());
         helloText.setLocalTranslation(200, helloText.getLineHeight() + 100, 100);
         guiNode.attachChild(helloText);
     }
@@ -69,7 +73,7 @@ public class Main extends SimpleApplication {
     	
     	rootNode.attachChild(grid);
     }
-    
+
     void initScene ()
     {
     	Line xAxis = new Line(new Vector3f(0f,0f,0f), new Vector3f(1f,0f,0f));
@@ -101,7 +105,7 @@ public class Main extends SimpleApplication {
     	Geometry mass1Geometry = new Geometry("Mass1", mass1);
     	Material mass1Mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
     	mass1Mat.setColor("Color", ColorRGBA.White);
-        Texture texsp = assetManager.loadTexture("Interface/Logo/Monkey.jpg");
+        Texture texsp = assetManager.loadTexture("Custom/Monkey.jpg");
         mass1Mat.setTexture("ColorMap", texsp);
     	mass1Geometry.setMaterial(mass1Mat);
     	mass1Geometry.setLocalTranslation(3f, 0f, -2f);
@@ -112,12 +116,10 @@ public class Main extends SimpleApplication {
         rootNode.attachChild(yGeometry);
         rootNode.attachChild(zGeometry);
         
-        /** An unshaded textured cube. 
-            *  Uses texture from jme3-test-data library! */ 
         Box boxshape1 = new Box(new Vector3f(0f, 10f, 0f), 1f,1f,1f); 
         Geometry cube_tex = new Geometry("A Textured Box", boxshape1); 
         Material mat_tex = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md"); 
-        Texture tex = assetManager.loadTexture("Interface/Logo/Monkey.jpg"); 
+        Texture tex = assetManager.loadTexture("Custom/Monkey.jpg"); 
         mat_tex.setTexture("ColorMap", tex); 
         cube_tex.setMaterial(mat_tex); 
         rootNode.attachChild(cube_tex); 
