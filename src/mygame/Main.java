@@ -46,7 +46,7 @@ public class Main extends SimpleApplication
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
         BitmapText helloText = new BitmapText(guiFont, false);
         helloText.setSize(guiFont.getCharSet().getRenderedSize());
-        helloText.setText("Hello World");
+        helloText.setText("Hello Monkey");
         //helloText.setLocalTranslation(200, helloText.getLineHeight() + 100, 100);
         //guiNode.attachChild(helloText);
         helloText.setLocalTranslation(-50f, 10f, -100f);
