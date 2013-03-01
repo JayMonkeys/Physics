@@ -28,7 +28,7 @@ public class Main extends SimpleApplication
     	
     	initGrid();
     	initScene();
-    	initString();
+    	//initString();
     	
     	//rootNode.detachAllChildren();
     	//guiNode.detachAllChildren();
