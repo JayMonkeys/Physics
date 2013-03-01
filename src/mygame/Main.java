@@ -129,5 +129,7 @@ public class Main extends SimpleApplication
         cube_tex.setMaterial(mat_tex); 
         rootNode.attachChild(cube_tex); 
         
+        //	Major update!!!
+        
     }
 }
