@@ -11,6 +11,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.*;
+import com.jme3.system.AppSettings;
 import com.jme3.texture.Texture;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
@@ -19,10 +20,11 @@ import de.lessvoid.nifty.screen.ScreenController;
 public class Main extends SimpleApplication implements ScreenController
 {
 	private Nifty nifty;
+	private AppSettings appSettings;
 	
     public static void main(String[] args)
     {	
-        Main app = new Main();
+    	Main app = new Main();
         app.start(); // start the game
     }
  
@@ -30,18 +32,30 @@ public class Main extends SimpleApplication implements ScreenController
     public void simpleInitApp() 
     {    	
     	//	Make assetManager look in custom assets folder
-    	assetManager.registerLocator("assets", FileLocator.class);
-    	
+    	assetManager.registerLocator("assets/", FileLocator.class);
+    	    	
     	initGrid();
     	initScene();
     	initString();
     	initScreen();
+    	
+    	renderManager.removeMainView(guiViewPort);
+    	viewPort.setBackgroundColor(new ColorRGBA(0.160784314f, 0.192156863f, 0.203921569f, 0));
     }
     
     @Override
     public void simpleUpdate(float tpf) 
     {	
         //rootNode.getChild(0).rotate(0, -1.0f/2.0f * tpf, 0); 
+    }
+    
+    void initSettings ()
+    {
+    	//	Initialize applications settings
+    	AppSettings appSettings = new AppSettings(true);
+    	
+    	
+    	
     }
     
     void initString ()
@@ -85,6 +99,7 @@ public class Main extends SimpleApplication implements ScreenController
 
     void initScene ()
     {
+    	//	Axes
     	Line xAxis = new Line(new Vector3f(0f,0f,0f), new Vector3f(1f,0f,0f));
     	Line yAxis = new Line(new Vector3f(0f,0f,0f), new Vector3f(0f,1f,0f));
     	Line zAxis = new Line(new Vector3f(0f,0f,0f), new Vector3f(0f,0f,1f));
@@ -136,11 +151,13 @@ public class Main extends SimpleApplication implements ScreenController
     
     void initScreen ()
     {
-		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager,
-				inputManager, audioRenderer, guiViewPort);
+		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		nifty = niftyDisplay.getNifty();
-		nifty.fromXml("Interface/screen.xml", "start", this);
-
+		nifty.fromXml("Interfaces/Screen.xml", "start", this);
+		
+		//	Transparent layer
+		//nifty.render(false);
+		
 		// attach the nifty display to the gui view port as a processor
 		guiViewPort.addProcessor(niftyDisplay);
 
@@ -150,21 +167,19 @@ public class Main extends SimpleApplication implements ScreenController
 		inputManager.setCursorVisible(true);
     }
 
-	@Override
-	public void bind(Nifty arg0, Screen arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void bind(Nifty nifty, Screen screen) {
+        System.out.println("bind( " + screen.getScreenId() + ")");
+    }
 
-	@Override
-	public void onEndScreen() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void onStartScreen() {
+        System.out.println("onStartScreen");
+    }
 
-	@Override
-	public void onStartScreen() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void onEndScreen() {
+        System.out.println("onEndScreen");
+    }
+
+    public void quit(){
+        nifty.gotoScreen("end");
+    }
 }

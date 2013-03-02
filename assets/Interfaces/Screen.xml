@@ -9,8 +9,10 @@
 			<!-- ... -->
 		</layer>
 		
-		<layer id="foreground" backgroundColor="#0000" childLayout="vertical">
-			<panel id="panel_top" height="25%" width="75%" align="center"
+		<layer id="foreground" backgroundColor="#000f" childLayout="vertical" height="50%" width="50%">
+			<!-- <image filename="Custom/transparent.jpg"></image> -->
+			
+			<panel id="panel_top" height="25%" width="100%" align="center"
 				childLayout="center" backgroundColor="#f008">
 			</panel>
 			
@@ -23,10 +25,11 @@
 				<panel id="panel_bottom_left" height="50%" width="50%" valign="center"
 					childLayout="center" backgroundColor="#44f8">
 				</panel>
-				<panel id="panel_bottom_right" height="50%" width="50%" valign="center"
+				<panel id="panel_bottom_right" height="50%" width="60%" valign="center"
 					childLayout="center" backgroundColor="#88f8">
 				</panel>
 			</panel>
+			
 		</layer>
 	</screen>
 	
