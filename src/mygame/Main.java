@@ -7,13 +7,19 @@ import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.*;
 import com.jme3.texture.Texture;
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.screen.Screen;
+import de.lessvoid.nifty.screen.ScreenController;
  
-public class Main extends SimpleApplication 
+public class Main extends SimpleApplication implements ScreenController
 {
+	private Nifty nifty;
+	
     public static void main(String[] args)
     {	
         Main app = new Main();
@@ -28,10 +34,8 @@ public class Main extends SimpleApplication
     	
     	initGrid();
     	initScene();
-    	//initString();
-    	
-    	//rootNode.detachAllChildren();
-    	//guiNode.detachAllChildren();
+    	initString();
+    	initScreen();
     }
     
     @Override
@@ -127,9 +131,40 @@ public class Main extends SimpleApplication
         Texture tex = assetManager.loadTexture("Custom/Monkey.jpg"); 
         mat_tex.setTexture("ColorMap", tex); 
         cube_tex.setMaterial(mat_tex); 
-        rootNode.attachChild(cube_tex); 
-        
-        //	Major update!!!
-        
+        rootNode.attachChild(cube_tex);         
     }
+    
+    void initScreen ()
+    {
+		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager,
+				inputManager, audioRenderer, guiViewPort);
+		nifty = niftyDisplay.getNifty();
+		nifty.fromXml("Interface/screen.xml", "start", this);
+
+		// attach the nifty display to the gui view port as a processor
+		guiViewPort.addProcessor(niftyDisplay);
+
+		// disable the fly cam
+		// flyCam.setEnabled(false);
+		// flyCam.setDragToRotate(true);
+		inputManager.setCursorVisible(true);
+    }
+
+	@Override
+	public void bind(Nifty arg0, Screen arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStartScreen() {
+		// TODO Auto-generated method stub
+		
+	}
 }
